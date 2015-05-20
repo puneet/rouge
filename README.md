@@ -3,13 +3,13 @@
 [![Build Status](https://secure.travis-ci.org/jneen/rouge.png)](http://travis-ci.org/jneen/rouge)
 [![Gem Version](https://badge.fury.io/rb/rouge.png)](http://badge.fury.io/rb/rouge)
 
-Rouge is a pure-ruby syntax highlighter.  It can highlight over 60 languages, and output HTML or ANSI 256-color text.  Its HTML output is compatible with stylesheets designed for [pygments][].
+[rouge]: http://rouge.jneen.net/
+
+[Rouge][] is a pure-ruby syntax highlighter.  It can highlight over 60 languages, and output HTML or ANSI 256-color text.  Its HTML output is compatible with stylesheets designed for [pygments][].
 
 If you'd like to help out with this project, assign yourself something from the [issues][] page, and send me a pull request (even if it's not done yet!).  Bonus points for feature branches.  In particular, I would appreciate help with the following lexers, from someone who has more experience with the language than I do:
 
 * Delphi/Pascal
-
-Also, if anyone with design skills feels like helping me make a website for rouge, I'd really appreciate the help.  So far all I've got is the [demo page][pretty colors].
 
 [issues]: https://github.com/jneen/rouge/issues "Help Out"
 [pygments]: http://pygments.org/ "Pygments"
@@ -52,7 +52,7 @@ A `Rouge::CSSTheme` used to highlight the output with inline styles instead of c
    base16.dark base16.light base16.solarized base16.monokai]
 ```
 
-##### wrap: true  
+##### wrap: true
 Wrap the highlighted content in a container. Defaults to `<pre><code>`, or `<div>` if line numbers are enabled.
 
 #### Lexer options
@@ -63,7 +63,7 @@ Print a trace of the lex on stdout
 Allows you to specify which language the template is inside
 
 #### CSS theme options
-##### scope: '.highlight'  
+##### scope: '.highlight'
 CSS selector that styles are applied to, e.g. `Rouge::Themes::Monokai.mode(:sublime).render(scope: 'code')`
 
 Rouge aims to be simple to extend, and to be a drop-in replacement for pygments, with the same quality of output. Also, Rouge ships with a `rougify` command which allows you to easily highlight files in your terminal:
@@ -175,7 +175,7 @@ class MyLexer < Rouge::RegexLexer
       end
     end
 
-    rule /(\w+)(:)/
+    rule /(\w+)(:)/ do
       # "groups" yields the matched groups in order
       groups Name::Label, Punctuation
     end
@@ -186,6 +186,26 @@ class MyLexer < Rouge::RegexLexer
   end
 end
 ```
+
+If you're creating a lexer that's very similar to a different lexer, you can use subclassing (see C/C++/ObjC and also QML/Javascript for examples):
+
+``` ruby
+class MyLexer < OtherLexer
+  # independent states
+  state :my_state do ... end
+
+  # override states
+  state :your_state do ... end
+
+  # prepend rules to states
+  prepand :parent_state do ... end
+
+  # append rules to states
+  append :parent_state do ... end
+end
+```
+
+Please don't submit lexers that are largely copy-pasted from other files.
 
 ## Tips
 
