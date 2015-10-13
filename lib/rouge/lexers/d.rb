@@ -23,7 +23,6 @@ module Rouge
 
       def self.keywords
         @keywords ||= super + Set.new(%w(
-<<<<<<< variant A
         abstract alias align assert auto body break catch cast
         delete delegate export final finally foreach foreach_reverse
         function import interface  invariant is macro mixin lazy
@@ -31,21 +30,12 @@ module Rouge
         scope synchronized template this throw throws typeid typename
         using virtual pragma debug delegate deprecated  typeof virtual
         pragma debug delegate union unittest version __vector __ parameters
->>>>>>> variant B
-          asm catch cast delete export import immutable
-          new private protected public package template this throw
-          throws typeid typename using virtual, pragma
-======= end
         ))
       end
 
       def self.reserved
         @reserved ||= super + Set.new(%w(
-<<<<<<< variant A
           __traits __FILE__ __MODULE__ __LINE__ __FUNCTION__ __PRETTY_FUNCTION__
->>>>>>> variant B
-          __traits
-======= end
         ))
       end
 
